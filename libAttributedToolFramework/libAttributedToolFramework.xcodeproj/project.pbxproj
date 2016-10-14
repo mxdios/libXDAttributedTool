@@ -6,10 +6,27 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		C2E765211DB0CF7D0058C6AB /* libAttributedText */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = C2E765221DB0CF7D0058C6AB /* Build configuration list for PBXAggregateTarget "libAttributedText" */;
+			buildPhases = (
+				C2E765261DB0D2890058C6AB /* ShellScript */,
+			);
+			dependencies = (
+			);
+			name = libAttributedText;
+			productName = libAttributedText;
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		C2E7650C1DB0C7D70058C6AB /* libAttributedToolFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2E765021DB0C7D70058C6AB /* libAttributedToolFramework.framework */; };
 		C2E765111DB0C7D70058C6AB /* libAttributedToolFrameworkTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C2E765101DB0C7D70058C6AB /* libAttributedToolFrameworkTests.m */; };
 		C2E765131DB0C7D70058C6AB /* libAttributedToolFramework.h in Headers */ = {isa = PBXBuildFile; fileRef = C2E765051DB0C7D70058C6AB /* libAttributedToolFramework.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C2E7651E1DB0CAF70058C6AB /* XDAttributedText.h in Headers */ = {isa = PBXBuildFile; fileRef = C2E7651C1DB0CAF70058C6AB /* XDAttributedText.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C2E7651F1DB0CAF70058C6AB /* XDAttributedText.m in Sources */ = {isa = PBXBuildFile; fileRef = C2E7651D1DB0CAF70058C6AB /* XDAttributedText.m */; };
+		C2E765201DB0CC550058C6AB /* XDAttributedText.m in Headers */ = {isa = PBXBuildFile; fileRef = C2E7651D1DB0CAF70058C6AB /* XDAttributedText.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,6 +46,8 @@
 		C2E7650B1DB0C7D70058C6AB /* libAttributedToolFrameworkTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = libAttributedToolFrameworkTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C2E765101DB0C7D70058C6AB /* libAttributedToolFrameworkTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = libAttributedToolFrameworkTests.m; sourceTree = "<group>"; };
 		C2E765121DB0C7D70058C6AB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C2E7651C1DB0CAF70058C6AB /* XDAttributedText.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XDAttributedText.h; sourceTree = "<group>"; };
+		C2E7651D1DB0CAF70058C6AB /* XDAttributedText.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XDAttributedText.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +90,8 @@
 		C2E765041DB0C7D70058C6AB /* libAttributedToolFramework */ = {
 			isa = PBXGroup;
 			children = (
+				C2E7651C1DB0CAF70058C6AB /* XDAttributedText.h */,
+				C2E7651D1DB0CAF70058C6AB /* XDAttributedText.m */,
 				C2E765051DB0C7D70058C6AB /* libAttributedToolFramework.h */,
 				C2E765061DB0C7D70058C6AB /* Info.plist */,
 			);
@@ -94,6 +115,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				C2E765131DB0C7D70058C6AB /* libAttributedToolFramework.h in Headers */,
+				C2E7651E1DB0CAF70058C6AB /* XDAttributedText.h in Headers */,
+				C2E765201DB0CC550058C6AB /* XDAttributedText.m in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -155,6 +178,11 @@
 						DevelopmentTeam = 775V7Y38FR;
 						ProvisioningStyle = Automatic;
 					};
+					C2E765211DB0CF7D0058C6AB = {
+						CreatedOnToolsVersion = 8.0;
+						DevelopmentTeam = 775V7Y38FR;
+						ProvisioningStyle = Automatic;
+					};
 				};
 			};
 			buildConfigurationList = C2E764FC1DB0C7D60058C6AB /* Build configuration list for PBXProject "libAttributedToolFramework" */;
@@ -171,6 +199,7 @@
 			targets = (
 				C2E765011DB0C7D70058C6AB /* libAttributedToolFramework */,
 				C2E7650A1DB0C7D70058C6AB /* libAttributedToolFrameworkTests */,
+				C2E765211DB0CF7D0058C6AB /* libAttributedText */,
 			);
 		};
 /* End PBXProject section */
@@ -192,11 +221,28 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		C2E765261DB0D2890058C6AB /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Sets the target folders and the final framework product.\n# 如果工程名称和Framework的Target名称不一样的话，要自定义FMKNAME\n# 例如: FMK_NAME = \"MyFramework\"\nFMK_NAME=${PROJECT_NAME}\n# Install dir will be the final output to the framework.\n# The following line create it in the root folder of the current project.\nINSTALL_DIR=${SRCROOT}/Products/${FMK_NAME}.framework\n# Working dir will be deleted after the framework creation.\nWRK_DIR=build\nDEVICE_DIR=${WRK_DIR}/Release-iphoneos/${FMK_NAME}.framework\nSIMULATOR_DIR=${WRK_DIR}/Release-iphonesimulator/${FMK_NAME}.framework\n# -configuration ${CONFIGURATION}\n# Clean and Building both architectures.\nxcodebuild -configuration \"Release\" -target \"${FMK_NAME}\" -sdk iphoneos clean build\nxcodebuild -configuration \"Release\" -target \"${FMK_NAME}\" -sdk iphonesimulator clean build\n# Cleaning the oldest.\nif [ -d \"${INSTALL_DIR}\" ]\nthen\nrm -rf \"${INSTALL_DIR}\"\nfi\nmkdir -p \"${INSTALL_DIR}\"\ncp -R \"${DEVICE_DIR}/\" \"${INSTALL_DIR}/\"\n# Uses the Lipo Tool to merge both binary files (i386 + armv6/armv7) into one Universal final product.\nlipo -create \"${DEVICE_DIR}/${FMK_NAME}\" \"${SIMULATOR_DIR}/${FMK_NAME}\" -output \"${INSTALL_DIR}/${FMK_NAME}\"\nrm -r \"${WRK_DIR}\"\nopen \"${INSTALL_DIR}\"";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		C2E764FD1DB0C7D70058C6AB /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C2E7651F1DB0CAF70058C6AB /* XDAttributedText.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -318,6 +364,10 @@
 		C2E765171DB0C7D70058C6AB /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = (
+					"$(ARCHS_STANDARD)",
+					armv7s,
+				);
 				CODE_SIGN_IDENTITY = "";
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 775V7Y38FR;
@@ -336,6 +386,10 @@
 		C2E765181DB0C7D70058C6AB /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = (
+					"$(ARCHS_STANDARD)",
+					armv7s,
+				);
 				CODE_SIGN_IDENTITY = "";
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 775V7Y38FR;
@@ -373,6 +427,22 @@
 			};
 			name = Release;
 		};
+		C2E765231DB0CF7D0058C6AB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEVELOPMENT_TEAM = 775V7Y38FR;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		C2E765241DB0CF7D0058C6AB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEVELOPMENT_TEAM = 775V7Y38FR;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -398,6 +468,14 @@
 			buildConfigurations = (
 				C2E7651A1DB0C7D70058C6AB /* Debug */,
 				C2E7651B1DB0C7D70058C6AB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		C2E765221DB0CF7D0058C6AB /* Build configuration list for PBXAggregateTarget "libAttributedText" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C2E765231DB0CF7D0058C6AB /* Debug */,
+				C2E765241DB0CF7D0058C6AB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 		};

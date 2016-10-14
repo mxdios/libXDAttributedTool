@@ -4,6 +4,11 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>libAttributedText.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
 		<key>libAttributedToolFramework.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -18,6 +23,11 @@
 			<true/>
 		</dict>
 		<key>C2E7650A1DB0C7D70058C6AB</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>C2E765211DB0CF7D0058C6AB</key>
 		<dict>
 			<key>primary</key>
 			<true/>

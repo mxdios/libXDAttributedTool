@@ -93,3 +93,76 @@ iOS库一般有开源库，静态库和动态库。
 
 ![img](https://raw.githubusercontent.com/mxdios/libXDAttributedTool/master/image/QQ20161014-0.png)
 
+将要打包的功能代码拖到新建的项目中。
+
+![img](https://raw.githubusercontent.com/mxdios/libXDAttributedTool/master/image/QQ20161014-1.png)
+
+## 配置工程
+
+在`Build Phases`里的`Headers`，把需要暴露在外面的.h文件拖动到`Public`下面，把不需要暴露的.m文件拖动到`Project`下面。
+
+![img](https://raw.githubusercontent.com/mxdios/libXDAttributedTool/master/image/QQ20161014-2.png)
+
+在新创建的工程里有一个和工程名一样的.h头文件，在该文件中引入全部需要暴露的.h文件。
+
+![img](https://raw.githubusercontent.com/mxdios/libXDAttributedTool/master/image/QQ20161014-3.png)
+
+## 添加脚本
+
+创建Aggregate，点击`TARGETS`下面的加号，Xcode8.0在`Cross-platform`里面的`Aggregate`，Xcode8之前的在`Other`里面`Aggregate`。
+
+![img](https://raw.githubusercontent.com/mxdios/libXDAttributedTool/master/image/2016-10-144.30.53.png)
+
+在新添加的`Aggregate`的`Build Phases`里面，点击加号，选择`New Run Script Phase`，添加Run Script脚本。
+
+![img](https://raw.githubusercontent.com/mxdios/libXDAttributedTool/master/image/2016-10-144.44.46.png)
+
+在Run Script代码框中添加脚本。
+
+![img](https://raw.githubusercontent.com/mxdios/libXDAttributedTool/master/image/QQ20161014-4.png)
+
+完整脚本：
+
+```Script
+# Sets the target folders and the final framework product.
+# 如果工程名称和Framework的Target名称不一样的话，要自定义FMKNAME
+# 例如: FMK_NAME = "MyFramework"
+FMK_NAME=${PROJECT_NAME}
+# Install dir will be the final output to the framework.
+# The following line create it in the root folder of the current project.
+INSTALL_DIR=${SRCROOT}/Products/${FMK_NAME}.framework
+# Working dir will be deleted after the framework creation.
+WRK_DIR=build
+DEVICE_DIR=${WRK_DIR}/Release-iphoneos/${FMK_NAME}.framework
+SIMULATOR_DIR=${WRK_DIR}/Release-iphonesimulator/${FMK_NAME}.framework
+# -configuration ${CONFIGURATION}
+# Clean and Building both architectures.
+xcodebuild -configuration "Release" -target "${FMK_NAME}" -sdk iphoneos clean build
+xcodebuild -configuration "Release" -target "${FMK_NAME}" -sdk iphonesimulator clean build
+# Cleaning the oldest.
+if [ -d "${INSTALL_DIR}" ]
+then
+rm -rf "${INSTALL_DIR}"
+fi
+mkdir -p "${INSTALL_DIR}"
+cp -R "${DEVICE_DIR}/" "${INSTALL_DIR}/"
+# Uses the Lipo Tool to merge both binary files (i386 + armv6/armv7) into one Universal final product.
+lipo -create "${DEVICE_DIR}/${FMK_NAME}" "${SIMULATOR_DIR}/${FMK_NAME}" -output "${INSTALL_DIR}/${FMK_NAME}"
+rm -r "${WRK_DIR}"
+open "${INSTALL_DIR}"
+```
+
+## 配置armv7s
+
+在`TARGETS`第一个包下面，`Build Settings`下面`Architectures`这一行，点击选择`Other`，在弹出框中加上armv7s。
+
+![img](https://raw.githubusercontent.com/mxdios/libXDAttributedTool/master/image/QQ20161014-5.png)
+
+## 编译工程
+
+选中新创建的`TARGETS`，command + b 编译工程，编译完成后会自动弹出Finder里打包完成的.framework静态库。
+
+![img](https://raw.githubusercontent.com/mxdios/libXDAttributedTool/master/image/QQ20161014-6.png)
+
+![img](https://raw.githubusercontent.com/mxdios/libXDAttributedTool/master/image/QQ20161014-8.png)
+

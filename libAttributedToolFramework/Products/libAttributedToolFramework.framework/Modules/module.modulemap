@@ -1,0 +1,6 @@
+framework module libAttributedToolFramework {
+  umbrella header "libAttributedToolFramework.h"
+
+  export *
+  module * { export * }
+}
